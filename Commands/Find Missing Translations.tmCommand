@@ -16,7 +16,7 @@
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>scope</key>
-	<string>source.ruby.rails, source.yaml</string>
+	<string>source.ruby.rails, source.yaml, text.html.ruby</string>
 	<key>uuid</key>
 	<string>C4B271F0-F240-46C7-B446-E8D47EDD6C55</string>
 </dict>

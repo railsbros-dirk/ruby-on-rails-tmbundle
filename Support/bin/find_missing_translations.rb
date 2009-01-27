@@ -59,9 +59,15 @@ Dir.glob(File.join(ENV["TM_PROJECT_DIRECTORY"], "app/**/*.{rb,erb}")) do |file_n
           puts "<a href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>#{translation_missing_error} in File: #{File.basename(file_name)}</a> Zeile #{file.lineno}<br />"
         end
       rescue SyntaxError => se
-        puts "<a style=\"color: red\" href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Complex Translation found in File: #{File.basename(file_name)}.</a> Zeile #{file.lineno}<br />"
+        unless line =~ /#DONE/
+          contains = true
+          puts "<a style=\"color: red\" href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Complex Translation found in File: #{File.basename(file_name)}.</a> Zeile #{file.lineno}<br />"
+        end
       rescue NameError => ne
-        puts "<a style=\"color: red\" href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Translation which uses variables has been found in File: #{File.basename(file_name)}.</a> Zeile #{file.lineno}<br />"
+        unless line =~ /#DONE/
+          contains = true
+          puts "<a style=\"color: red\" href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Translation which uses variables has been found in File: #{File.basename(file_name)}.</a> Zeile #{file.lineno}<br />"
+        end
       end
     end
   end
