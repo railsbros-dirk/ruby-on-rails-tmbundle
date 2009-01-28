@@ -61,11 +61,13 @@ Dir.glob(File.join(ENV["TM_PROJECT_DIRECTORY"], "app/**/*.{rb,erb}")) do |file_n
       rescue SyntaxError => se
         unless line =~ /#DONE/
           contains = true
+          counter += 1
           puts "<a style=\"color: red\" href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Complex Translation found in File: #{File.basename(file_name)}.</a> Zeile #{file.lineno}<br />"
         end
       rescue NameError => ne
         unless line =~ /#DONE/
           contains = true
+          counter += 1
           puts "<a style=\"color: red\" href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Translation which uses variables has been found in File: #{File.basename(file_name)}.</a> Zeile #{file.lineno}<br />"
         end
       end
