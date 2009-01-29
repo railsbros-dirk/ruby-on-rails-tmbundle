@@ -24,10 +24,12 @@ Dir.glob(File.join(ENV["TM_PROJECT_DIRECTORY"], "app/**/*.{rb,erb}")) do |file_n
   contains = false
   file = File.open(file_name)
   file.each do |line|
-    if line.index(' t(:message')
-      counter += 1
-      contains = true
-      puts "<a href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Missing Scope in File: #{File.basename(file_name)}</a> Zeile #{file.lineno}<br />"
+    unless line =~ /#DONE/
+      if line.index(' t(:message')
+        counter += 1
+        contains = true
+        puts "<a href='txmt://open?url=file://#{file_name}&line=#{file.lineno}'>Missing Scope in File: #{File.basename(file_name)}</a> Zeile #{file.lineno}<br />"
+      end
     end
   end
   puts "<br />" if contains
